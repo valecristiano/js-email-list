@@ -8,28 +8,12 @@ const newEmailButton = document.getElementById("new-emails-btn");
 //Api
 
 const emailGenerator = "https://flynn.boolean.careers/exercises/api/random/mail";
-let c = 0;
 
-for (let i = 0; i < 10; i++) {
-  axios
-    .get(emailGenerator)
-    .then((response) => {
-      emailList.innerHTML += `<li>${response.data.response}</li>`;
-    })
-    .catch((error) => {
-      errorMessage.classList.remove("d-none");
-    })
-    .finally(() => {
-      c++;
-      if (c >= 10) {
-        finallyMessage.classList.remove("d-none");
-      }
-    });
-}
-
-newEmailButton.addEventListener("click", () => {
+function emailGeneration(numeroEmail) {
   emailList.innerHTML = "";
-  for (let i = 0; i < 10; i++) {
+  let c = 0;
+
+  for (let i = 0; i < numeroEmail; i++) {
     axios
       .get(emailGenerator)
       .then((response) => {
@@ -45,4 +29,10 @@ newEmailButton.addEventListener("click", () => {
         }
       });
   }
+}
+
+emailGeneration(10);
+
+newEmailButton.addEventListener("click", () => {
+  emailGeneration(10);
 });
